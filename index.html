@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5e8">
+  <meta name="description" content="تطبيق يحيى للروتين اليومي وتجهيز شنطة المدرسة">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./assets/app-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <title>يحيى — روتيني اليومي</title>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="page-header" id="pageHeader">
+      <img class="header-art" id="headerArt" src="./assets/icons/header-morning.jpg" alt="">
+    </header>
+    <section class="content" id="content" aria-live="polite"></section>
+    <nav class="bottom-nav" aria-label="التنقل بين الصفحات">
+      <button class="nav-button active" data-page="morning">
+        <span class="nav-icon sun-icon">☀</span><span>الصباح</span>
+      </button>
+      <button class="nav-button" data-page="after">
+        <span class="nav-icon">🎒</span><span>بعد المدرسة</span>
+      </button>
+      <button class="nav-button" data-page="schedule">
+        <span class="nav-icon">◷</span><span>الجدول اليومي</span>
+      </button>
+    </nav>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
