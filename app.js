@@ -33,18 +33,15 @@ const initial = {
 
 const titles = {
   morning: {
-    image: 'header-morning.jpg',
-    cls: 'morning-list'
+    image: 'header-morning.jpg'
   },
 
   after: {
-    image: 'header-after-school.jpg',
-    cls: 'after-list'
+    image: 'header-after-school.jpg'
   },
 
   schedule: {
-    image: 'header-schedule.jpg',
-    cls: 'schedule-list'
+    image: 'header-schedule.jpg'
   }
 };
 
@@ -71,7 +68,6 @@ let state = savedState || {
   bagChecked: {}
 };
 
-// التأكد من وجود بيانات كل الصفحات
 if (!state.checked) {
   state.checked = {};
 }
@@ -84,7 +80,6 @@ if (!state.bagChecked) {
   state.bagChecked = {};
 }
 
-// إضافة المهام الجديدة مع الاحتفاظ بالترتيب القديم
 Object.keys(initial).forEach(page => {
   const savedOrder = Array.isArray(state.order[page])
     ? state.order[page]
@@ -114,6 +109,8 @@ if (!titles[state.page]) {
 
 const $ = selector => document.querySelector(selector);
 
+
+// حفظ بيانات التطبيق
 function save() {
   localStorage.setItem(
     STORAGE_KEY,
@@ -121,31 +118,31 @@ function save() {
   );
 }
 
+
+// إرجاع المهام بالترتيب المحفوظ
 function orderedItems(page) {
   const items = initial[page];
 
-  const map = Object.fromEntries(
+  const itemMap = Object.fromEntries(
     items.map(item => [item.id, item])
   );
 
-  const order = state.order[page] || [];
-
-  return order
-    .map(id => map[id])
+  return (state.order[page] || [])
+    .map(id => itemMap[id])
     .filter(Boolean);
 }
 
+
+// إنشاء بطاقة المهمة
 function rowHTML(item, page) {
   const key = page + ':' + item.id;
   const checked = !!state.checked[key];
-
-  const draggable = page === 'schedule';
 
   return `
     <div
       class="task-row ${checked ? 'done' : ''}"
       data-id="${item.id}"
-      ${draggable ? 'draggable="true"' : ''}
+      draggable="true"
     >
 
       <img
@@ -153,6 +150,7 @@ function rowHTML(item, page) {
         src="${assets + item.icon}"
         alt=""
         loading="lazy"
+        draggable="false"
       >
 
       <span class="task-name">
@@ -166,23 +164,19 @@ function rowHTML(item, page) {
         ${checked ? 'checked' : ''}
       >
 
-      ${
-        draggable
-          ? `
-            <button
-              type="button"
-              class="drag-handle"
-              aria-label="اسحب لإعادة الترتيب"
-              title="اسحب لإعادة الترتيب"
-            >⠿</button>
-          `
-          : ''
-      }
+      <button
+        type="button"
+        class="drag-handle"
+        aria-label="اسحب لإعادة ترتيب المهمة"
+        title="اسحب لإعادة الترتيب"
+      >⠿</button>
 
     </div>
   `;
 }
 
+
+// عرض الصفحة الحالية
 function render() {
   const page = state.page;
   const conf = titles[page];
@@ -200,7 +194,7 @@ function render() {
           : 'الجدول اليومي';
   }
 
-  // تحديث الصفحة النشطة في شريط التنقل
+  // تحديث زر الصفحة النشطة
   document.querySelectorAll('.nav-button').forEach(button => {
     button.classList.toggle(
       'active',
@@ -214,13 +208,11 @@ function render() {
   if (page === 'morning') {
     html = `
       <div class="panel morning-list">
-
         <div class="task-list">
           ${orderedItems(page)
             .map(item => rowHTML(item, page))
             .join('')}
         </div>
-
       </div>
     `;
   }
@@ -229,13 +221,11 @@ function render() {
   else if (page === 'after') {
     html = `
       <div class="panel after-list">
-
         <div class="task-list">
           ${orderedItems(page)
             .map(item => rowHTML(item, page))
             .join('')}
         </div>
-
       </div>
     `;
   }
@@ -244,11 +234,9 @@ function render() {
   else {
     html = `
       <div class="task-list schedule-list">
-
         ${orderedItems(page)
           .map(item => rowHTML(item, page))
           .join('')}
-
       </div>
 
       <p class="hint">
@@ -266,7 +254,7 @@ function render() {
 
   content.innerHTML = html;
 
-  // حفظ حالة إنجاز كل مهمة
+  // حفظ حالة إنجاز المهام
   content.querySelectorAll('[data-check]').forEach(box => {
     box.addEventListener('change', event => {
       const key = event.target.dataset.check;
@@ -274,33 +262,61 @@ function render() {
       state.checked[key] = event.target.checked;
 
       save();
-
       render();
     });
   });
 
-  // تفعيل إعادة ترتيب المهام
-  if (page === 'schedule') {
-    attachDrag();
-  }
+  // تفعيل السحب والإفلات في كل الصفحات
+  attachDrag(page);
 
   save();
 }
 
-function attachDrag() {
-  let dragged = null;
 
-  const list = $('.schedule-list');
-
-  if (!list) {
-    return;
+// تحديد قائمة المهام حسب الصفحة
+function getTaskList(page) {
+  if (page === 'morning') {
+    return $('.morning-list .task-list');
   }
+
+  if (page === 'after') {
+    return $('.after-list .task-list');
+  }
+
+  return $('.schedule-list');
+}
+
+
+// حفظ ترتيب قائمة معينة
+function saveOrder(page) {
+  const list = getTaskList(page);
+
+  if (!list) return;
+
+  state.order[page] = [
+    ...list.querySelectorAll('.task-row')
+  ].map(row => row.dataset.id);
+
+  save();
+}
+
+
+// تفعيل السحب والإفلات
+function attachDrag(page) {
+  const list = getTaskList(page);
+
+  if (!list) return;
+
+  let dragged = null;
+  let touchRow = null;
+  let touchStartY = 0;
+  let touchMoved = false;
 
   const rows = list.querySelectorAll('.task-row');
 
-  // إعادة الترتيب بالماوس
   rows.forEach(row => {
 
+    // السحب بالماوس على الكمبيوتر
     row.addEventListener('dragstart', event => {
       dragged = row;
 
@@ -319,21 +335,19 @@ function attachDrag() {
     row.addEventListener('dragend', () => {
       row.classList.remove('dragging');
 
-      document
-        .querySelectorAll('.drag-over')
-        .forEach(element => {
-          element.classList.remove('drag-over');
-        });
+      list.querySelectorAll('.drag-over').forEach(element => {
+        element.classList.remove('drag-over');
+      });
 
       dragged = null;
 
-      saveOrder();
+      saveOrder(page);
     });
 
     row.addEventListener('dragover', event => {
       event.preventDefault();
 
-      if (row !== dragged) {
+      if (dragged && dragged !== row) {
         row.classList.add('drag-over');
       }
     });
@@ -347,9 +361,7 @@ function attachDrag() {
 
       row.classList.remove('drag-over');
 
-      if (!dragged || dragged === row) {
-        return;
-      }
+      if (!dragged || dragged === row) return;
 
       const rect = row.getBoundingClientRect();
 
@@ -359,138 +371,112 @@ function attachDrag() {
         row.before(dragged);
       }
 
-      saveOrder();
+      saveOrder(page);
     });
 
   });
 
-  // إعادة الترتيب باللمس على الموبايل
-  let touchRow = null;
 
-  document
-    .querySelectorAll('.schedule-list .drag-handle')
-    .forEach(handle => {
+  // السحب باللمس على الموبايل
+  list.querySelectorAll('.drag-handle').forEach(handle => {
 
-      handle.addEventListener(
-        'touchstart',
-        event => {
-          touchRow = handle.closest('.task-row');
+    handle.addEventListener('touchstart', event => {
+      touchRow = handle.closest('.task-row');
 
-          if (touchRow) {
-            touchRow.classList.add('dragging');
-          }
-        },
-        { passive: true }
-      );
+      if (!touchRow) return;
 
-      handle.addEventListener(
-        'touchmove',
-        event => {
-          if (!touchRow) {
-            return;
-          }
+      touchStartY = event.touches[0].clientY;
+      touchMoved = false;
 
-          const touch = event.touches[0];
-          const y = touch.clientY;
+      touchRow.classList.add('dragging');
 
-          const currentList = $('.schedule-list');
+    }, { passive: true });
 
-          if (!currentList) {
-            return;
-          }
 
-          const target = [
-            ...currentList.querySelectorAll('.task-row')
-          ].find(row => {
-            const rect = row.getBoundingClientRect();
+    handle.addEventListener('touchmove', event => {
+      if (!touchRow) return;
 
-            return (
-              y >= rect.top &&
-              y <= rect.bottom &&
-              row !== touchRow
-            );
-          });
+      const touch = event.touches[0];
+      const currentY = touch.clientY;
 
-          if (target) {
-            const rect = target.getBoundingClientRect();
+      if (Math.abs(currentY - touchStartY) > 5) {
+        touchMoved = true;
+      }
 
-            if (y > rect.top + rect.height / 2) {
-              target.after(touchRow);
-            } else {
-              target.before(touchRow);
-            }
-          }
-        },
-        { passive: true }
-      );
+      if (!touchMoved) return;
 
-      handle.addEventListener(
-        'touchend',
-        () => {
-          if (!touchRow) {
-            return;
-          }
+      const target = [
+        ...list.querySelectorAll('.task-row')
+      ].find(row => {
+        if (row === touchRow) return false;
 
-          touchRow.classList.remove('dragging');
+        const rect = row.getBoundingClientRect();
 
-          touchRow = null;
+        return (
+          currentY >= rect.top &&
+          currentY <= rect.bottom
+        );
+      });
 
-          saveOrder();
-        },
-        { passive: true }
-      );
+      if (!target) return;
 
-      handle.addEventListener(
-        'touchcancel',
-        () => {
-          if (touchRow) {
-            touchRow.classList.remove('dragging');
-            touchRow = null;
-          }
+      const rect = target.getBoundingClientRect();
 
-          saveOrder();
-        },
-        { passive: true }
-      );
+      if (currentY > rect.top + rect.height / 2) {
+        target.after(touchRow);
+      } else {
+        target.before(touchRow);
+      }
 
-    });
+    }, { passive: true });
+
+
+    const finishTouch = () => {
+      if (!touchRow) return;
+
+      touchRow.classList.remove('dragging');
+
+      touchRow = null;
+
+      saveOrder(page);
+    };
+
+    handle.addEventListener(
+      'touchend',
+      finishTouch,
+      { passive: true }
+    );
+
+    handle.addEventListener(
+      'touchcancel',
+      finishTouch,
+      { passive: true }
+    );
+
+  });
 }
 
-function saveOrder() {
-  const list = $('.schedule-list');
 
-  if (!list) {
-    return;
-  }
-
-  state.order.schedule = [
-    ...list.querySelectorAll('.task-row')
-  ].map(row => row.dataset.id);
-
-  save();
-}
-
-// التنقل بين الصفحات الثلاث
+// التنقل بين الصفحات
 document.querySelectorAll('.nav-button').forEach(button => {
   button.addEventListener('click', () => {
     const page = button.dataset.page;
 
-    if (!titles[page]) {
-      return;
-    }
+    if (!titles[page]) return;
 
     state.page = page;
 
     save();
-
     render();
   });
 });
 
-// عرض الصفحة عند فتح التطبيق
+
+// عرض التطبيق عند فتحه
 render();
 
-// تسجيل Service Worker
+
+// تحديث Service Worker
 if (
   'serviceWorker' in navigator &&
   location.protocol.startsWith('http')
