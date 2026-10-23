@@ -192,10 +192,6 @@ function render() {
           .map(item => rowHTML(item, page))
           .join('')}
       </div>
-
-      <p class="hint">
-        ⠿ يمكنك سحب العناصر لإعادة ترتيبها
-      </p>
     `;
   }
 
