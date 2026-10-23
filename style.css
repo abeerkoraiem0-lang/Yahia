@@ -168,3 +168,42 @@ button{font:inherit;cursor:pointer}
 .nav-icon {
   font-size: 17px;
 }
+
+/* ألوان هادئة لأنشطة الجدول اليومي فقط */
+.schedule-list .task-row:nth-child(6n + 1) {
+  background: #e4f5ed;
+  border-color: #c8e7d7;
+}
+
+.schedule-list .task-row:nth-child(6n + 2) {
+  background: #e1f2ff;
+  border-color: #c6e3f6;
+}
+
+.schedule-list .task-row:nth-child(6n + 3) {
+  background: #fff2c9;
+  border-color: #f0dfaa;
+}
+
+.schedule-list .task-row:nth-child(6n + 4) {
+  background: #ffe4e5;
+  border-color: #f3cfd2;
+}
+
+.schedule-list .task-row:nth-child(6n + 5) {
+  background: #f0e4ff;
+  border-color: #dfd0f4;
+}
+
+.schedule-list .task-row:nth-child(6n) {
+  background: #ffe7ce;
+  border-color: #f1d4b4;
+}
+
+/* إظهار الصور كاملة داخل مساحتها */
+.task-row .task-art {
+  object-fit: contain;
+  object-position: center;
+  max-width: 100%;
+  flex-shrink: 0;
+}
