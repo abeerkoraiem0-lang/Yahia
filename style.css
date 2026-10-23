@@ -207,3 +207,65 @@ button{font:inherit;cursor:pointer}
   max-width: 100%;
   flex-shrink: 0;
 }
+
+/* ألوان أنشطة صفحة صباح الخير */
+.morning-list .task-row:nth-child(6n + 1) {
+  background: #e4f5ed;
+  border-color: #c8e7d7;
+}
+
+.morning-list .task-row:nth-child(6n + 2) {
+  background: #e1f2ff;
+  border-color: #c6e3f6;
+}
+
+.morning-list .task-row:nth-child(6n + 3) {
+  background: #fff2c9;
+  border-color: #f0dfaa;
+}
+
+.morning-list .task-row:nth-child(6n + 4) {
+  background: #ffe4e5;
+  border-color: #f3cfd2;
+}
+
+.morning-list .task-row:nth-child(6n + 5) {
+  background: #f0e4ff;
+  border-color: #dfd0f4;
+}
+
+.morning-list .task-row:nth-child(6n) {
+  background: #ffe7ce;
+  border-color: #f1d4b4;
+}
+
+/* ألوان أنشطة صفحة بعد المدرسة */
+.after-list .task-row:nth-child(6n + 1) {
+  background: #e1f2ff;
+  border-color: #c6e3f6;
+}
+
+.after-list .task-row:nth-child(6n + 2) {
+  background: #ffe7ce;
+  border-color: #f1d4b4;
+}
+
+.after-list .task-row:nth-child(6n + 3) {
+  background: #e4f5ed;
+  border-color: #c8e7d7;
+}
+
+.after-list .task-row:nth-child(6n + 4) {
+  background: #f0e4ff;
+  border-color: #dfd0f4;
+}
+
+.after-list .task-row:nth-child(6n + 5) {
+  background: #fff2c9;
+  border-color: #f0dfaa;
+}
+
+.after-list .task-row:nth-child(6n) {
+  background: #ffe4e5;
+  border-color: #f3cfd2;
+}
