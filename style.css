@@ -561,3 +561,23 @@ button {
   outline: 2px solid #168b7e;
   outline-offset: 3px;
 }
+/* منع قص صور وأيقونات المهام */
+.task-card img,
+.task-item img,
+.task-icon img,
+.task-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* الحفاظ على الصورة كاملة داخل مساحتها */
+.task-card .task-image,
+.task-item .task-image,
+.task-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
