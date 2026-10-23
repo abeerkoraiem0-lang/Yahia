@@ -55,3 +55,103 @@ button{font:inherit;cursor:pointer}
 .empty-note{text-align:center;padding:25px 10px;color:#6d858c}
 @media(min-width:600px){body{padding:18px 0}.app-shell{min-height:calc(100dvh - 36px);border:7px solid #252525;border-radius:44px;box-shadow:0 8px 28px #c7bba7}.page-header{height:195px;flex-basis:195px}}
 @media(max-height:720px){.page-header{height:145px;flex-basis:145px}.task-row{min-height:60px}.task-row .task-art{height:49px}.morning-list .task-row{min-height:72px}.morning-list .task-art{height:60px}}
+
+/* تصغير عناصر التطبيق لتناسب شاشة الموبايل */
+.app-shell {
+  max-width: 440px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.page-header {
+  height: 145px;
+  flex-basis: 145px;
+}
+
+.task-list {
+  gap: 6px;
+}
+
+.task-row {
+  min-height: 56px;
+  gap: 6px;
+  padding: 4px 7px;
+  border-radius: 14px;
+}
+
+.task-row .task-art {
+  width: 54px;
+  height: 46px;
+  flex-basis: 54px;
+}
+
+.task-row .task-name {
+  font-size: 14px;
+}
+
+.task-row input[type="checkbox"] {
+  width: 23px;
+  height: 23px;
+  flex-basis: 23px;
+}
+
+.task-row input[type="checkbox"]:checked::after {
+  font-size: 17px;
+  line-height: 19px;
+}
+
+.morning-list .task-row {
+  min-height: 66px;
+}
+
+.morning-list .task-art {
+  width: 68px;
+  height: 54px;
+  flex-basis: 68px;
+}
+
+.morning-list .task-name {
+  font-size: 15px;
+}
+
+.panel {
+  padding: 7px;
+  border-radius: 18px;
+}
+
+.panel-title {
+  font-size: 15px;
+}
+
+.backpack-panel {
+  margin-top: 8px;
+  padding: 8px;
+}
+
+.backpack-panel h2 {
+  font-size: 14px;
+}
+
+.pack-item {
+  font-size: 12px;
+  padding: 3px 2px;
+}
+
+.pack-item input {
+  width: 17px;
+  height: 17px;
+}
+
+.bottom-nav {
+  padding: 4px;
+  margin-top: 4px;
+}
+
+.nav-button {
+  min-height: 52px;
+  font-size: 11px;
+}
+
+.nav-icon {
+  font-size: 20px;
+}
