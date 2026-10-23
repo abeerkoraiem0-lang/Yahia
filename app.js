@@ -19,9 +19,6 @@ const initial = {
     {id:'sleep',name:'نوم',icon:'sleep.jpg'}
   ],
   schedule: [
-    {id:'sleep',name:'نوم',icon:'sleep.jpg'},
-    {id:'prepare',name:'الاستعداد للمدرسة',icon:'backpack.jpg'},
-    {id:'school',name:'المدرسة',icon:'school.jpg'},
     {id:'homework',name:'الواجبات',icon:'homework.jpg'},
     {id:'screen',name:'شاشة وغداء',icon:'screen-lunch.jpg'},
     {id:'quran',name:'حفظ قرآن',icon:'quran.jpg'},
