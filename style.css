@@ -57,101 +57,114 @@ button{font:inherit;cursor:pointer}
 @media(max-height:720px){.page-header{height:145px;flex-basis:145px}.task-row{min-height:60px}.task-row .task-art{height:49px}.morning-list .task-row{min-height:72px}.morning-list .task-art{height:60px}}
 
 /* تصغير عناصر التطبيق لتناسب شاشة الموبايل */
+
+
+/* تصغير إضافي للتطبيق */
 .app-shell {
-  max-width: 440px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 
 .page-header {
-  height: 145px;
-  flex-basis: 145px;
+  height: 112px;
+  flex-basis: 112px;
+}
+
+.content {
+  padding: 0 2px 7px;
 }
 
 .task-list {
-  gap: 6px;
+  gap: 4px;
 }
 
 .task-row {
-  min-height: 56px;
-  gap: 6px;
-  padding: 4px 7px;
-  border-radius: 14px;
+  min-height: 45px;
+  padding: 3px 5px;
+  gap: 5px;
+  border-radius: 11px;
 }
 
 .task-row .task-art {
-  width: 54px;
-  height: 46px;
-  flex-basis: 54px;
+  width: 42px;
+  height: 38px;
+  flex-basis: 42px;
 }
 
 .task-row .task-name {
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 1.25;
 }
 
 .task-row input[type="checkbox"] {
-  width: 23px;
-  height: 23px;
-  flex-basis: 23px;
+  width: 19px;
+  height: 19px;
+  flex-basis: 19px;
+  border-width: 1.5px;
+  border-radius: 5px;
 }
 
 .task-row input[type="checkbox"]:checked::after {
-  font-size: 17px;
-  line-height: 19px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.drag-handle {
+  font-size: 18px;
+  width: 16px;
 }
 
 .morning-list .task-row {
-  min-height: 66px;
+  min-height: 52px;
 }
 
 .morning-list .task-art {
-  width: 68px;
-  height: 54px;
-  flex-basis: 68px;
+  width: 52px;
+  height: 43px;
+  flex-basis: 52px;
 }
 
 .morning-list .task-name {
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .panel {
-  padding: 7px;
-  border-radius: 18px;
-}
-
-.panel-title {
-  font-size: 15px;
+  padding: 5px;
+  border-radius: 14px;
 }
 
 .backpack-panel {
-  margin-top: 8px;
-  padding: 8px;
+  margin-top: 6px;
+  padding: 6px;
+  border-radius: 13px;
 }
 
 .backpack-panel h2 {
-  font-size: 14px;
+  font-size: 12px;
+  margin-bottom: 4px;
 }
 
 .pack-item {
-  font-size: 12px;
-  padding: 3px 2px;
+  font-size: 11px;
+  gap: 6px;
+  padding: 2px;
 }
 
 .pack-item input {
-  width: 17px;
-  height: 17px;
+  width: 15px;
+  height: 15px;
 }
 
 .bottom-nav {
-  padding: 4px;
-  margin-top: 4px;
+  padding: 3px;
+  gap: 2px;
 }
 
 .nav-button {
-  min-height: 52px;
-  font-size: 11px;
+  min-height: 43px;
+  font-size: 10px;
 }
 
 .nav-icon {
-  font-size: 20px;
+  font-size: 17px;
 }
