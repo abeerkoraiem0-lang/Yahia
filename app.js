@@ -1,4 +1,4 @@
-const assets = './assets/icons/';
+const assets = './';
 const initial = {
   morning: [
     {id:'bed',name:'ترتيب السرير',icon:'bed.jpg'},
