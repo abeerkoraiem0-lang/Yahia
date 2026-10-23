@@ -22,9 +22,6 @@ const initial = {
   ],
 
   schedule: [
-    { id: 'sleep', name: 'نوم', icon: 'sleep.jpg' },
-    { id: 'prepare', name: 'الاستعداد للمدرسة', icon: 'backpack.jpg' },
-    { id: 'school', name: 'المدرسة', icon: 'backpack.jpg' },
     { id: 'homework', name: 'الواجبات', icon: 'homework.jpg' },
     { id: 'screen', name: 'شاشة وغداء', icon: 'screen-lunch.jpg' },
     { id: 'quran', name: 'حفظ قرآن', icon: 'quran.jpg' },
